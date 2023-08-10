@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class StarflyAdminApplication {
+public class StarFlyAdminApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(StarflyAdminApplication.class, args);
+		SpringApplication.run(StarFlyAdminApplication.class, args);
 	}
 
 }
