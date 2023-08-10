@@ -22,6 +22,7 @@
         <lombok.version>1.18.28</lombok.version>
         <hutool.version>5.8.21</hutool.version>
     </properties>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
