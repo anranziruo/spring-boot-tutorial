@@ -1,1 +1,19 @@
+server:
+  port: 9006
 
+# Spring
+spring:
+  config:
+    activate:
+      on-profile: dev
+  kafka:
+    consumer:
+      bootstrap-servers: 127.0.0.1:9092
+    producer:
+      bootstrap-servers: 127.0.0.1:9092
+      compression-type: snappy
+    admin:
+      properties:
+        bootstrap.servers: 127.0.0.1:9092
+  main:
+    web-application-type: none
