@@ -1,7 +1,11 @@
 package com.starfly.config;
 
+import com.starfly.domain.JsonMessage;
+import com.starfly.filter.ConsumerFilter;
+import com.starfly.filter.ConsumerJsonFilter;
 import com.starfly.listener.RebalancedListener;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
@@ -13,6 +17,8 @@ import org.springframework.kafka.core.*;
 import org.springframework.kafka.listener.ConcurrentMessageListenerContainer;
 import org.springframework.kafka.listener.ContainerProperties;
 import org.springframework.kafka.listener.adapter.RecordFilterStrategy;
+import org.springframework.kafka.support.serializer.ErrorHandlingDeserializer;
+import org.springframework.kafka.support.serializer.JsonDeserializer;
 
 import javax.annotation.Resource;
 import java.util.Map;
@@ -67,5 +73,32 @@ public class KafkaConfig {
     public KafkaAdmin kafkaAdmin() {
         Map<String,Object> properties= kafkaProperties.getAdmin().buildProperties();
         return new KafkaAdmin(properties);
+    }
+
+    @Bean
+    public ConsumerFactory<Object, JsonMessage> consumerJsonFactory() {
+        Map<String,Object> properties= kafkaProperties.getConsumer().buildProperties();
+        properties.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+        properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, ErrorHandlingDeserializer.class);
+        properties.put(ErrorHandlingDeserializer.VALUE_DESERIALIZER_CLASS, JsonDeserializer.class.getName());
+        properties.put(JsonDeserializer.VALUE_DEFAULT_TYPE, JsonMessage.class);
+        return new DefaultKafkaConsumerFactory<>(properties);
+    }
+
+    @Bean(name = "jsonContainerFactory")
+    public KafkaListenerContainerFactory<ConcurrentMessageListenerContainer<Object, JsonMessage>>
+    jsonContainerFactory() {
+        ConcurrentKafkaListenerContainerFactory<Object, JsonMessage> factory =
+                new ConcurrentKafkaListenerContainerFactory<Object, JsonMessage>();
+        factory.setConsumerFactory(consumerJsonFactory());
+
+        RecordFilterStrategy<Object, JsonMessage> filter = new ConsumerJsonFilter();
+        factory.setRecordFilterStrategy(filter);
+        factory.setBatchListener(true);
+//        factory.setCommonErrorHandler(new CommonError());
+        ContainerProperties props = factory.getContainerProperties();
+        props.setAckMode(ContainerProperties.AckMode.MANUAL_IMMEDIATE);
+        props.setConsumerRebalanceListener(new RebalancedListener());
+        return factory;
     }
 }
