@@ -14,6 +14,7 @@ import org.springframework.messaging.handler.annotation.Payload;
 
 import javax.annotation.Resource;
 import java.util.List;
+import java.util.Objects;
 
 @Slf4j
 public class JsonListenConfig extends KafkaProperties.Listener{
@@ -29,6 +30,8 @@ public class JsonListenConfig extends KafkaProperties.Listener{
     private final String[] properties;
 
     private final String containerFactory;
+
+    private static final String EMPTY_JSON = "{}";
 
 
     @Resource
@@ -80,7 +83,7 @@ public class JsonListenConfig extends KafkaProperties.Listener{
         String sendTopic = getTopic();
         for (JsonMessage message : messages) {
             try {
-                if (message != null) {
+                if (message != null && !message.toString().equals(EMPTY_JSON)) {
 //                    commonProducerService.send(sendTopic, keys.get(i), messages.get(i));
                     log.info("生产者发送数据成功:{},消息：{}", sendTopic, message);
                 }
