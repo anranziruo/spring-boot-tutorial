@@ -6,6 +6,7 @@ import com.starfly.filter.ConsumerJsonFilter;
 import com.starfly.listener.RebalancedListener;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.common.config.SslConfigs;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
@@ -39,6 +40,7 @@ public class KafkaConfig {
         properties.put("key.deserializer", StringDeserializer.class);
         properties.put("value.deserializer", StringDeserializer.class);
         properties.put("allow.auto.create.topics", false);
+        properties.put(SslConfigs.SSL_ENDPOINT_IDENTIFICATION_ALGORITHM_CONFIG,"");
         return new DefaultKafkaConsumerFactory<Object, Object>(properties);
     }
 
@@ -49,6 +51,7 @@ public class KafkaConfig {
         properties.put("value.serializer", StringSerializer.class);
         properties.put("enable.idempotence", false);
         properties.put("retries", RETRY_MAX);
+        properties.put(SslConfigs.SSL_ENDPOINT_IDENTIFICATION_ALGORITHM_CONFIG,"");
         return new DefaultKafkaProducerFactory<>(properties);
     }
 
@@ -72,6 +75,7 @@ public class KafkaConfig {
     @Bean
     public KafkaAdmin kafkaAdmin() {
         Map<String,Object> properties= kafkaProperties.getAdmin().buildProperties();
+        properties.put(SslConfigs.SSL_ENDPOINT_IDENTIFICATION_ALGORITHM_CONFIG,"");
         return new KafkaAdmin(properties);
     }
 
@@ -82,6 +86,7 @@ public class KafkaConfig {
         properties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, ErrorHandlingDeserializer.class);
         properties.put(ErrorHandlingDeserializer.VALUE_DESERIALIZER_CLASS, JsonDeserializer.class.getName());
         properties.put(JsonDeserializer.VALUE_DEFAULT_TYPE, JsonMessage.class);
+        properties.put(SslConfigs.SSL_ENDPOINT_IDENTIFICATION_ALGORITHM_CONFIG,"");
         return new DefaultKafkaConsumerFactory<>(properties);
     }
 

@@ -51,7 +51,7 @@ public class JsonRun implements CommandLineRunner{
         }
 
         String kafkaTopic = args[1].trim();
-        String kafkaGroup = args[1].trim();
+        String kafkaGroup = args[2].trim();
         log.info("kafkaTopic = {}, kafkaGroup = {}", kafkaTopic, kafkaGroup);
 
 

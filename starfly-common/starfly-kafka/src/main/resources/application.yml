@@ -5,15 +5,39 @@ server:
 spring:
   config:
     activate:
-      on-profile: dev
+      on-profile: prod
   kafka:
+    jaas:
+      enabled: true
+      control-flag: required
+      options:
+          username: alikafka_post-cn-5yd3ci5fo00e
+          password: CmVW0tXTQLvCTnEm0l5TXxFN29H8oCHB
+      login-module: org.apache.kafka.common.security.plain.PlainLoginModule
     consumer:
-      bootstrap-servers: 127.0.0.1:9092
+      ssl:
+        trust-store-password: KafkaOnsClient
+        trust-store-location: file:/Users/xiaoshanshan/app/code/java/spring_boot/starfly/starfly-common/starfly-kafka/pert/mix.4096.client.truststore.jks
+      properties:
+        sasl.mechanism: PLAIN
+        security.protocol: SASL_SSL
+      bootstrap-servers: alikafka-post-cn-5yd3ci5fo00e-1.alikafka.aliyuncs.com:9093,alikafka-post-cn-5yd3ci5fo00e-2.alikafka.aliyuncs.com:9093,alikafka-post-cn-5yd3ci5fo00e-3.alikafka.aliyuncs.com:9093
     producer:
-      bootstrap-servers: 127.0.0.1:9092
       compression-type: snappy
+      ssl:
+          trust-store-password: KafkaOnsClient
+          trust-store-location: file:/Users/xiaoshanshan/app/code/java/spring_boot/starfly/starfly-common/starfly-kafka/pert/mix.4096.client.truststore.jks
+      properties:
+        sasl.mechanism: PLAIN
+        security.protocol: SASL_SSL
+      bootstrap-servers: alikafka-post-cn-5yd3ci5fo00e-1.alikafka.aliyuncs.com:9093,alikafka-post-cn-5yd3ci5fo00e-2.alikafka.aliyuncs.com:9093,alikafka-post-cn-5yd3ci5fo00e-3.alikafka.aliyuncs.com:9093
     admin:
       properties:
-        bootstrap.servers: 127.0.0.1:9092
+        bootstrap.servers: alikafka-post-cn-5yd3ci5fo00e-1.alikafka.aliyuncs.com:9093,alikafka-post-cn-5yd3ci5fo00e-2.alikafka.aliyuncs.com:9093,alikafka-post-cn-5yd3ci5fo00e-3.alikafka.aliyuncs.com:9093
+        sasl.mechanism: PLAIN
+        security.protocol: SASL_SSL
+      ssl:
+        trust-store-location: file:/Users/xiaoshanshan/app/code/java/spring_boot/starfly/starfly-common/starfly-kafka/pert/mix.4096.client.truststore.jks
+        trust-store-password: KafkaOnsClient
   main:
     web-application-type: none
