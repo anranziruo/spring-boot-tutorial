@@ -1,20 +1,18 @@
-package com.starfly.listener;
+package com.starfly.kafka.listener;
 
-import com.starfly.domain.JsonMessage;
-import com.starfly.service.CommonProducerService;
+import com.starfly.kafka.service.CommonProducerService;
+import com.starfly.kafka.domain.JsonMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.kafka.support.KafkaHeaders;
-import org.springframework.messaging.Message;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.Payload;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.Objects;
 
 @Slf4j
 public class JsonListenConfig extends KafkaProperties.Listener{

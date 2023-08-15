@@ -1,7 +1,6 @@
-package com.starfly.runner;
+package com.starfly.kafka.runner;
 
-import com.starfly.service.CommonConsumerService;
-import com.starfly.service.JsonConsumerService;
+import com.starfly.kafka.service.CommonConsumerService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.admin.AdminClient;
 import org.apache.kafka.clients.admin.DescribeTopicsResult;
@@ -17,14 +16,15 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+
 @Component
 @Slf4j
-public class JsonRun implements CommandLineRunner{
+public class CommonRun implements CommandLineRunner {
     @Resource
     private ApplicationContext applicationContext;
 
     @Resource
-    private JsonConsumerService jsonConsumerService;
+    private CommonConsumerService commonConsumerService;
 
     @Resource
     private ConfigurableEnvironment configurableEnvironment;
@@ -51,7 +51,7 @@ public class JsonRun implements CommandLineRunner{
         }
 
         String kafkaTopic = args[1].trim();
-        String kafkaGroup = args[2].trim();
+        String kafkaGroup = args[1].trim();
         log.info("kafkaTopic = {}, kafkaGroup = {}", kafkaTopic, kafkaGroup);
 
 
@@ -78,6 +78,6 @@ public class JsonRun implements CommandLineRunner{
         }
 
         adminClient.close();
-        jsonConsumerService.startJsonConsumer(kafkaTopic,kafkaGroup);
+        commonConsumerService.startCommonConsumer(kafkaTopic,kafkaGroup);
     }
 }

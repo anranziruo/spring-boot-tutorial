@@ -1,7 +1,6 @@
-package com.starfly.service;
+package com.starfly.kafka.service;
 
-
-import com.starfly.listener.StringListenConfig;
+import com.starfly.kafka.listener.JsonListenConfig;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -12,19 +11,18 @@ import javax.annotation.Resource;
 import java.util.List;
 
 @Service
-
-public class CommonConsumerService {
+public class JsonConsumerService {
     @Resource
     private ApplicationContext applicationContext;
 
     @Bean
     @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-    StringListenConfig initStringListenConfig(String topic, String id, String group, Integer concurrency, String[] properties,
-                              String containerFactory) {
-        return new StringListenConfig(id, topic,group,concurrency,properties,containerFactory);
+    JsonListenConfig initJsonListenConfig(String topic, String id, String group, Integer concurrency, String[] properties,
+                                          String containerFactory) {
+        return new JsonListenConfig(id, topic,group,concurrency,properties,containerFactory);
     }
 
-    public void startCommonConsumer(String topic, String group) {
+    public void startJsonConsumer(String topic, String group) {
 
         //增加sleep时间
         try {
@@ -47,7 +45,7 @@ public class CommonConsumerService {
         String[] properties = new String[propertiesList.size()];
         propertiesList.toArray(properties);
 
-        applicationContext.getBean(StringListenConfig.class, topic, id,group,concurrency,
-                properties,"farLocationContainerFactory");
+        applicationContext.getBean(JsonListenConfig.class, topic, id,group,concurrency,
+                properties,"jsonContainerFactory");
     }
 }

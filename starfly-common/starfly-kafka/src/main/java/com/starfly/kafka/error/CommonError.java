@@ -1,4 +1,4 @@
-package com.starfly.error;
+package com.starfly.kafka.error;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.Consumer;

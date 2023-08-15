@@ -1,6 +1,6 @@
-package com.starfly.listener;
+package com.starfly.kafka.listener;
 
-import com.starfly.service.CommonProducerService;
+import com.starfly.kafka.service.CommonProducerService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.kafka.annotation.KafkaListener;

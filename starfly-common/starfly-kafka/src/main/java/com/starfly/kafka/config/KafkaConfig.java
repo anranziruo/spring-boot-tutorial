@@ -1,9 +1,9 @@
-package com.starfly.config;
+package com.starfly.kafka.config;
 
-import com.starfly.domain.JsonMessage;
-import com.starfly.filter.ConsumerFilter;
-import com.starfly.filter.ConsumerJsonFilter;
-import com.starfly.listener.RebalancedListener;
+import com.starfly.kafka.filter.ConsumerFilter;
+import com.starfly.kafka.domain.JsonMessage;
+import com.starfly.kafka.filter.ConsumerJsonFilter;
+import com.starfly.kafka.listener.RebalancedListener;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.config.SslConfigs;

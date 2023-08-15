@@ -1,4 +1,4 @@
-package com.starfly.filter;
+package com.starfly.kafka.filter;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.listener.adapter.RecordFilterStrategy;

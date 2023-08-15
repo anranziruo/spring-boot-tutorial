@@ -1,4 +1,4 @@
-package com.starfly.listener;
+package com.starfly.kafka.listener;
 
 import org.springframework.kafka.listener.ConsumerAwareRebalanceListener;
 

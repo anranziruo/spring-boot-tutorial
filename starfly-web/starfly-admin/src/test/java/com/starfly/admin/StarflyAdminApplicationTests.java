@@ -1,10 +1,10 @@
-package com.starfly;
+package com.admin;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class StarflyKafkaApplicationTests {
+class StarflyAdminApplicationTests {
 
 	@Test
 	void contextLoads() {

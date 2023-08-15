@@ -1,4 +1,4 @@
-package com.starfly.domain;
+package com.starfly.kafka.domain;
 
 import com.alibaba.fastjson.JSON;
 import lombok.NonNull;

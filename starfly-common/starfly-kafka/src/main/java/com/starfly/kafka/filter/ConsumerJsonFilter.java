@@ -1,6 +1,6 @@
-package com.starfly.filter;
+package com.starfly.kafka.filter;
 
-import com.starfly.domain.JsonMessage;
+import com.starfly.kafka.domain.JsonMessage;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.listener.adapter.RecordFilterStrategy;
 
