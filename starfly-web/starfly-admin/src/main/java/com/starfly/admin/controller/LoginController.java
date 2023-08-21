@@ -18,8 +18,8 @@ public class LoginController {
         return loginService.login(username, password);
     }
 
-    @GetMapping("/logout")
-    public String logout(){
-        return "logout";
+    @PostMapping("/hello")
+    public String hello(){
+        return "hello";
     }
 }

@@ -32,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // 认证失败处理类
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .authorizeRequests()
-                .antMatchers("/login","/hello").anonymous()
+                .antMatchers("/login").anonymous()
                 .anyRequest().authenticated()
                 .and()
                 .headers().frameOptions().disable();
